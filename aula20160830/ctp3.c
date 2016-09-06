@@ -3,7 +3,6 @@
 int main()
 {
     int indice=0;
-    int numero=0;
     char investigador;
     char frase[256];
     printf("Escreva uma frase: ");
@@ -13,11 +12,7 @@ int main()
     {
         frase[indice] = isalpha(investigador);
         indice++;
-        numero++;
-        investigador= frase[indice];
-        if(frase[indice] = isspace(investigador);)
-		numero--;
     }
-    printf("\nA frase possui %d de digitos", numero);
+    printf("\nA frase possui %d de digitos", indice);
     return 0;
 }
