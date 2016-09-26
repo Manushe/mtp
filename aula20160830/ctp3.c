@@ -1,18 +1,18 @@
-#include <stdio.h>
-#include <ctype.h>
-int main()
-{
-    int indice=0;
+#include<stdio.h>
+#include<ctype.h>
+int main () {
+    int indice = 0,contador=0;
     char investigador;
     char frase[256];
     printf("Escreva uma frase: ");
     gets(frase);
-    investigador= frase[indice];
-    while(investigador)
-    {
-        frase[indice] = isalpha(investigador);
+    investigador=frase[indice];
+    while(investigador){
+        if(isalpha(investigador)!=0){
+            contador++;
+        }
         indice++;
-    }
-    printf("\nA frase possui %d de digitos", indice);
+        investigador=frase[indice];}
+    printf("\nO numero de caracteres da frase e: %d",contador);
     return 0;
 }
