@@ -1,57 +1,51 @@
-
-#include<stdio.h>
-
-
-typedef struct Pilha_ {
-int idtopo;
-int * dado;
+#include <stdio.h>
+#include <stdlib.h>
+typedef int DADO;
+typedef struct Pilha_{
+DADO topo;
+struct Pilha_* proximo;
 }Pilha;
+void push (Pilha ** ppilha, DADO elemento);
+void pop (Pilha ** ppilha);
+DADO top (Pilha * pilha);
+int empty (Pilha * pilha);
+int main (){
+Pilha * pilha= NULL;
+int i;
 
-
-void push(Pilha *pilha, int dado)
-{
-    (*pilha).idtopo++;
-    if((*pilha).dado==NULL);
-
-        (*pilha).dado=(int*) malloc(sizeof(int));
-     else
-        (*pilha).dado=(int*) realloc((*pilha).dado, (*pilha).idtopo*sizeof(int));
-    (*pilha).dado[(*pilha).idtopo]=dado;
-
+printf("Push: ");
+for (i=0;i<5;i++){
+        push (&pilha, i);
+        printf("%d", top(pilha));
 }
-void pop(Pilha * pilha)
-{
-    if((*pilha).idtopo-1>= -1)
-        (*pilha).idtopo--;
-        if((*pilha).idtopo== -1)
-            (*pilha).dado=NULL;
-        else(*pílha).dado=(int*) realloc((*pilha).dado,(*pilha).idtopo*sizeof(int));
-
+printf("\nPop: ");
+while(!empty(pilha)){
+    printf ("%d", top (pilha));
+    pop(&pilha);
 }
-int * top(Pilha pilha)
+return 0;}
+void push (Pilha ** ppilha, DADO elemento)
 {
-    return pilha.dado[pilha.idtopo];
+  Pilha * novo= (Pilha*) malloc (sizeof(Pilha));
+  novo->topo=elemento;
+  novo->proximo=*ppilha;
+  *ppilha = novo;
 }
-
-int empty(Pilha pilha)
+void pop (Pilha ** ppilha)
 {
-    return (pilha.idtopo == -1);
-}
-int main()
-{
-    Pilha pilha;
-    int i;
-    pilha.idtopo= -1;
-    for(i=0;i<5;i++)
-      {
-          printf("%d ",'A'+i);
-          push(&pilha, i+50);
-      }
-      printf("\n");
-    while(!empty(pilha))
+    Pilha * aux=NULL;
+    if (!empty(*ppilha))
     {
-        printf("%d ", top(pilha));
-        pop(&pilha);//tem que mandar o endereço & por estar mandando por referencia
+        aux= (*ppilha)->proximo;
+        free(*ppilha);
+        *ppilha=aux;
     }
-    return 0;
+    else
+        fprintf(stdout, "ERRO!!!!!! A pilha esta vazia doidao!\n");
+}
+DADO top (Pilha * pilha){
+return pilha->topo; }
+int empty (Pilha * pilha)
+{
+return (pilha== NULL);
 }

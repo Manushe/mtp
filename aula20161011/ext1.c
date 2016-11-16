@@ -1,31 +1,83 @@
 #include<stdio.h>
 #include<stdlib.h>
-
-void recebenumero(int* numero);
+int recebenumeros(int *numeros,int n);
+void maioremenor(int *numeros,int n);
+void media(int *numeros,int n);
 int main()
-{
-    int * numero;
-    numero= malloc(sizeof (int));
-    recebenumero(numero);
 
-return 0;
+{
+    int *numeros=malloc(sizeof(int));
+    int n,op,k;
+     printf("\nQuantos numeros deseja? ");
+        scanf("%d",&n);
+       numeros= recebenumeros(numeros,n);
+   do
+   {
+
+
+        printf("Escolha:\n(1)Media\n(2)Maior e Menor numero\n(3)Mais numeros?\n(4)Sair\n");
+        scanf("%d",&op);
+        switch(op)
+        {
+            case 1:
+                media(numeros,n);
+            break;
+            case 2:
+                maioremenor(numeros,n);
+            break;
+            case 3:
+                printf("Quantos a mais? ");
+                scanf("%d",&k);
+                n=n+k;
+                numeros=recebenumeros(numeros,n);
+                break;
+        }
+
+    }while(op!=4);
+    free(numeros);
+    return 0;
 }
-
-void recebenumero(int* numero)
+int recebenumeros(int *numeros,int n)
 {
-    int tamanho=0,soma=0;
-    float media;
-    int c=0;
-    while(c!=2){
-        printf("Entre com o numero :\n");
-        scanf("%d",&numero[tamanho]);
-        soma=soma+numero[tamanho];
-        media=soma/(tamanho+1);
-        printf("\nA soma eh:%d e a media eh %f. \n", soma, media);
-        printf("Deseja adicionar mais algum numero? 1= sim e 2= nao\n");
-        scanf("%d",&c);
-        if(c==1){
-        tamanho++;
-        numero=(int *) realloc(numero, (tamanho+1)*sizeof(int));}}
-    free(numero);
+    int i=0;
+    while(i<n)
+    {
+        scanf("%d",&numeros[i]);
+        numeros=(int *)realloc(numeros,(n+1)*sizeof(int));
+        i++;
+
+    }
+    system("cls");
+    return numeros;
+}
+void media(int *numeros,int n)
+{
+   int aux=0,i;
+   for(i=0;i<n;i++)
+   {
+       aux=aux+numeros[i];
+   }
+    system("cls");
+    printf("Media: %g\n\n",(float)aux/n);
+
+
+}
+void maioremenor(int *numeros,int n)
+{
+    system("cls");
+    int i,p=numeros[0];
+    for(i=0;i<n;i++)
+    {
+        if(numeros[i]>p)
+            p=numeros[i];
+    }
+    printf("Maior: %d\n",p);
+    p=numeros[0];
+    for(i=0;i<n;i++)
+    {
+        if(numeros[i]<p)
+            p=numeros[i];
+    }
+    printf("Menor: %d\n",p);
+
 }
